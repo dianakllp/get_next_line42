@@ -66,12 +66,12 @@ char *ft_strjoin(const char *s1, const char *s2) // in this function we are allo
 
     while (*s1 && s2)
     {
-        dest[i++] = *s1++;
+        dest[i++] = *(s1++);
     }
     while(*s2 && s1)
     {
-        dest[i++] = *s2++;
+        dest[i++] = *(s2++);
     }
     dest[i] = '\0';
-    return(dest);
+    return (dest);
 }

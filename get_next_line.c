@@ -6,7 +6,7 @@
 /*   By: dianakolopenyuk <dianakolopenyuk@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:39:28 by dianakolope       #+#    #+#             */
-/*   Updated: 2024/07/07 11:18:15 by dianakolope      ###   ########.fr       */
+/*   Updated: 2024/07/08 18:39:23 by dianakolope      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int read_Buffer(int fd, char **stash, char *buffer)
     bytes = read(fd, buffer, BUFFER_SIZE); //it stops at null term
     //read returns the number of bytes that it has read. And the data is saved in buffer in read()
     
-    if (bytes < 0 || bytes == 0 || buffer == NULL) //if read returns negative or buffer is zero; bytes always should be
+    if (bytes < 0 || buffer == NULL) //if read returns negative or buffer is zero; bytes always should be
     //non negative
     {
         free(*stash);
@@ -60,6 +60,7 @@ static void remove_result(char **stash)
     i = 0;
     j = ft_strlen(*stash) - ft_strlen(nl) + 1; //pointer to the index to the character after we find 
     //the new line (so the first charcet of the nex sentence)
+    // "1234567\n90"
     while (j < ft_strlen(*stash))
     {
         temp[i++] = (*stash)[j++];
@@ -81,7 +82,9 @@ static void get_result(char **stash, char **result)//This function extracts the 
     size_t len;
 
     nl = ft_strchr(*stash, '\n'); //it returns the pointer to the character where it founds a new line
-    len = ft_strlen(*stash) - ft_strlen(nl) + 2; //here we are looking for the len after we find a new line char
+    if (!nl)
+        nl = ft_strchr(*stash, '\0');
+    len = ft_strlen(nl) + 1; //here we are looking for the len after we find a new line char
     // (why + 2? we are adding null terminator and new line character);
     *result = (char *)malloc (len * sizeof(char)); //assigning the memory 
     if (!result)
