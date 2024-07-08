@@ -1,0 +1,43 @@
+//some explanation
+
+fd - it is like unique ID that you can use to refer to the file you need to read from or open it 
+buffer - it is a temporary storage area in my program's memory where the data read from file will be stored
+read function takes data from the file (using file descriptor) and places it into the buffer 
+
+
+int fd is the file descteptor to read data from
+char **stash pointer to a string where read data is finaly stored
+char *buffer is temperary buffer holding the read data before processing 
+
+What function read buffer does? 
+1. Read data from the file descriptor 
+2. Handle errors.
+3. Accumulates all the read data into dynamicaly managed string (stash)
+4.Free old allocations to manage the memory 
+
+Why we need buffer?  To temporary save data that we JUST READ 
+WHy we need stash? To ACCUMULATE all the data that we read 
+
+Separation of Concepts:
+
+get_result: Extracts the next complete line from stash and returns it. 
+This function ensures that only the complete line is passed back to the caller, adhering to the function's 
+contract of returning one line at a time.
+remove_result: Removes the extracted line from stash, leaving behind any remaining data for future processing.
+This ensures that subsequent calls to get_next_line start with fresh data after the extracted line.
+
+In Summary:
+- stash accumulates data.
+- get_result extracts a complete line from stash.
+- remove_result cleans up stash after extraction.
+
+
+Read ():
+
+read() returns the number of bytes it has read from the file descriptor.
+The actual data read is stored in the buffer.
+
+
+Buffer VS Stash: 
+// Why we need buffer?  To temporary save data that we JUST READ 
+// WHy we need stash? To ACCUMULATE all the data that we read 
