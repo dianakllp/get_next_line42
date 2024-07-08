@@ -6,7 +6,7 @@
 /*   By: dianakolopenyuk <dianakolopenyuk@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:39:28 by dianakolope       #+#    #+#             */
-/*   Updated: 2024/07/08 18:39:23 by dianakolope      ###   ########.fr       */
+/*   Updated: 2024/07/08 19:23:25 by dianakolope      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void get_result(char **stash, char **result)//This function extracts the 
     nl = ft_strchr(*stash, '\n'); //it returns the pointer to the character where it founds a new line
     if (!nl)
         nl = ft_strchr(*stash, '\0');
-    len = ft_strlen(nl) + 1; //here we are looking for the len after we find a new line char
+    len = ft_strlen(*stash) - ft_strlen(nl) + 2; //here we are looking for the len after we find a new line char
     // (why + 2? we are adding null terminator and new line character);
     *result = (char *)malloc (len * sizeof(char)); //assigning the memory 
     if (!result)
